@@ -3,8 +3,7 @@ import {wp} from '../global';
 import RNFS from 'react-native-fs';
 
 const Constants = {
-  MAPBOX_ACCESS_TOKEN:
-    'sk.eyJ1Ijoic2FhZGd1bCIsImEiOiJjbDZlMTg2dmEwM3Y1M2Rtcmc4bGZkNXN5In0.zW20bBNEF9qofPKJG9GtdA',
+  MAPBOX_ACCESS_TOKEN: '',
   APP_NAME: 'Cilo',
   FONTFAMILY_MARGINBOTTOM: Platform.OS === 'android' ? wp(-0.9) : 0,
   RECORDING_PATH: `${RNFS.DownloadDirectoryPath}/audio.acc`,
