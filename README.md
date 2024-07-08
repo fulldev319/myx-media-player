@@ -1,35 +1,102 @@
-# TypeScript Example
+# Myx Media Player
 
-<p>
-  <!-- iOS -->
-  <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
-  <!-- Android -->
-  <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />
-  <!-- Web -->
-  <img alt="Supports Expo Web" longdesc="Supports Expo Web" src="https://img.shields.io/badge/web-4630EB.svg?style=flat-square&logo=GOOGLE-CHROME&labelColor=4285F4&logoColor=fff" />
-</p>
+Myx Media Player is a React Native-based media player application developed for a cryptocurrency company. This app allows users to play various media files seamlessly with a user-friendly interface.
 
+## Table of Contents
 
-## 🚀 How to use
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Technologies Used](#technologies-used)
+- [Contributing](#contributing)
+- [License](#license)
 
-#### Creating a new project
+## Features
 
-- Install the CLI globally on pc: `npm i -g expo-cli`
-- Install packages: `expo install`
-- Start Expo / Metro Server: `expo start`
-   /**The command will genterate QR code on console**/
-- Install Expo app on the device(emulator/real device) from google play
-- Run Android on device / emulator
-  1. Scan QR code using Expo app 
-  2. Hot key: 
-      › Press a │ open Android
-      › Press w │ open web
+- Play audio and video files
+- Support for various media formats
+- Intuitive and user-friendly interface
+- Playlist management
+- Background playback
+- Media controls (play, pause, stop, forward, rewind)
+- Volume control
+- Seek bar
 
-      › Press r │ reload app
-      › Press m │ toggle menu
-      › Press d │ show developer tools
-      › shift+d │ toggle auto opening developer tools on startup (disabled)
+## Installation
 
-## 📝 Notes
+To get started with Myx Media Player, follow these steps:
 
-- [Expo TypeScript guide](https://docs.expo.dev/versions/latest/guides/typescript/)
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/your-username/myx-media-player.git
+   cd myx-media-player
+   ```
+
+2. **Install dependencies:**
+
+```bash
+npm install
+```
+
+3. **Link native dependencies:**
+
+```bash
+npx react-native link
+```
+
+4. **Run the app:**
+
+For iOS:
+
+```bash
+npx react-native run-ios
+```
+
+For Android:
+
+```bash
+npx react-native run-android
+```
+
+## Usage
+
+1. **Launch the app on your device or emulator.**
+2. **Add media files to your library.**
+3. **Select a media file to start playing.**
+4. **Use the media controls to manage playback.**
+
+## Technologies Used
+
+- **React Native**
+- **typescript**
+- **Redux (or other state management library, if used)**
+- **React Navigation (for navigation within the app)**
+- **Native modules for media playback**
+
+## Contributing
+
+Contributions are welcome! Please follow these steps to contribute:
+
+1. **Fork the repository.**
+2. **Create a new branch** for your feature or bug fix:
+   ```bash
+   git checkout -b feature-name
+   ```
+3. **Commit your changes:**
+
+```bash
+git commit -m 'Add some feature'
+```
+
+4. **Push to the branch:**
+
+```bash
+git push origin feature-name
+```
+
+4. **Open a pull request** with a detailed description of your changes.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
