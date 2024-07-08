@@ -35,67 +35,70 @@ To get started with Myx Media Player, follow these steps:
 
 2. **Install dependencies:**
 
-```bash
-npm install
-```
+   ```bash
+   npm install
+   ```
 
 3. **Link native dependencies:**
 
-```bash
-npx react-native link
-```
+   ```bash
+   npx react-native link
+   ```
 
 4. **Run the app:**
 
-For iOS:
+   For iOS:
 
-```bash
-npx react-native run-ios
-```
+   ```bash
+   npx react-native run-ios
+   ```
 
-For Android:
+   For Android:
 
-```bash
-npx react-native run-android
-```
+   ```bash
+   npx react-native run-android
+   ```
 
 ## Usage
 
-1. **Launch the app on your device or emulator.**
-2. **Add media files to your library.**
-3. **Select a media file to start playing.**
-4. **Use the media controls to manage playback.**
+1. **Launch the app** on your device or emulator.
+2. **Add media files** to your library.
+3. **Select a media file** to start playing.
+4. **Use the media controls** to manage playback.
 
 ## Technologies Used
 
-- **React Native**
-- **typescript**
-- **Redux (or other state management library, if used)**
-- **React Navigation (for navigation within the app)**
-- **Native modules for media playback**
+- React Native
+- Typescript
+- Redux (or other state management library, if used)
+- React Navigation (for navigation within the app)
+- Native modules for media playback
 
 ## Contributing
 
 Contributions are welcome! Please follow these steps to contribute:
 
 1. **Fork the repository.**
+
 2. **Create a new branch** for your feature or bug fix:
+
    ```bash
    git checkout -b feature-name
    ```
+
 3. **Commit your changes:**
 
-```bash
-git commit -m 'Add some feature'
-```
+   ```bash
+   git commit -m 'Add some feature'
+   ```
 
 4. **Push to the branch:**
 
-```bash
-git push origin feature-name
-```
+   ```bash
+   git push origin feature-name
+   ```
 
-4. **Open a pull request** with a detailed description of your changes.
+5. **Open a pull request** with a detailed description of your changes.
 
 ## License
 
