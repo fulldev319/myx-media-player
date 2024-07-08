@@ -1,0 +1,80 @@
+name: IOS Development Build
+
+on:
+  workflow_dispatch:
+    inputs:
+        build_version:
+          description: 'Define build version'     
+          required: true
+          default: '3'
+
+jobs:
+  ios-build:
+    name: IOS Development Build
+    runs-on: macOS-latest
+    defaults:
+      run:
+        working-directory: ios
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Restore node_modules from cache
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn2-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn2-
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --network-timeout 300000
+
+      - name: Setup Ruby (bundle)
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.4
+          bundler-cache: true
+
+      - name: Restore Pods cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ios/Pods
+            ~/Library/Caches/CocoaPods
+            ~/.cocoapods
+          key: ${{ runner.os }}-pods2-${{ hashFiles('ios/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods2-
+
+      - name: Install Pods
+        run: pod install --repo-update && cd ..
+        
+      - name: Replace identifiers
+        run: sed -i -e "s|PRODUCT_NAME = Clio|PRODUCT_NAME = ${{secrets.APP_NAME}}|g" Clio.xcodeproj/xcshareddata/xcschemes/Clio.xcscheme &&  sed -i -e "s|com.clio|${{secrets.PRODUCT_NAME}}|g" Clio.xcodeproj/project.pbxproj &&  sed -i -e "s|CURRENT_PROJECT_VERSION = 1|CURRENT_PROJECT_VERSION = ${{ github.event.inputs.build_version }}|g" Clio.xcodeproj/project.pbxproj      
+      - name: Build IOS App
+        uses: yukiarrr/ios-build-action@v1.5.0
+        with:
+          project-path: ios/Clio.xcodeproj
+          p12-base64: ${{ secrets.IOS_P12_BASE64 }}
+          mobileprovision-base64: ${{ secrets.IOS_MOBILE_PROVISION_BASE64 }}
+          code-signing-identity: ${{ secrets.IDENTITY_CS }}
+          team-id: ${{ secrets.IOS_TEAM_ID }}
+          certificate-password: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+          workspace-path: ios/Clio.xcworkspace
+
+      - name: 'Upload app to TestFlight'
+        uses: apple-actions/upload-testflight-build@v1
+        env:
+          FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 120
+        with:
+          app-path: 'output.ipa'
+          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}

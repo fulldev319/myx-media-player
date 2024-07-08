@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "392193144076",
+    "firebase_url": "https://testnet-b31b0.firebaseio.com",
+    "project_id": "testnet-b31b0",
+    "storage_bucket": "testnet-b31b0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:392193144076:android:4bed8c64571379e4328529",
+        "android_client_info": {
+          "package_name": "com.clio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "392193144076-osp9gi7dl4hc6batoaiq5se76pktr3rc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0egNz95HCJdI97jPn_FQEcpqBCSKSs8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "392193144076-osp9gi7dl4hc6batoaiq5se76pktr3rc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

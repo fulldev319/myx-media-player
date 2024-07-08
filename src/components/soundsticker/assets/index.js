@@ -1,0 +1,1 @@
+export { default as geoData } from './data/geo'

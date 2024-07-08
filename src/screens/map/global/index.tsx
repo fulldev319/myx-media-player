@@ -1,0 +1,1 @@
+export { wp, hp, listenOrientationChange, removeOrientationListener } from './Scalling'

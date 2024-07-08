@@ -1,0 +1,60 @@
+diff --git a/node_modules/react-native-subtitles/.DS_Store b/node_modules/react-native-subtitles/.DS_Store
+new file mode 100644
+index 0000000..87d72bf
+Binary files /dev/null and b/node_modules/react-native-subtitles/.DS_Store differ
+diff --git a/node_modules/react-native-subtitles/index.d.ts b/node_modules/react-native-subtitles/index.d.ts
+index 71aac91..1bd7807 100644
+--- a/node_modules/react-native-subtitles/index.d.ts
++++ b/node_modules/react-native-subtitles/index.d.ts
+@@ -8,7 +8,7 @@ import React from 'react';
+  */
+ export interface SubtitlesProps {
+     selectedsubtitle: {
+-        file: string;
++        data: string;
+     };
+     currentTime: number;
+     containerStyle?: React.StyleHTMLAttributes<HTMLDivElement>;
+diff --git a/node_modules/react-native-subtitles/index.js b/node_modules/react-native-subtitles/index.js
+index 9bc98f5..ad68a81 100644
+--- a/node_modules/react-native-subtitles/index.js
++++ b/node_modules/react-native-subtitles/index.js
+@@ -8,7 +8,7 @@ const Subtitles = ({ selectedsubtitle, currentTime, containerStyle = {}, textSty
+      */
+     const [subtitles, setSubtitles] = useState([]);
+     const parseSubtitles = async () => {
+-        const parsedSubtitles = await subtitleParser(selectedsubtitle.file);
++        const parsedSubtitles = await subtitleParser(selectedsubtitle.data);
+         setSubtitles(parsedSubtitles);
+     };
+     useEffect(() => {
+diff --git a/node_modules/react-native-subtitles/utils/subtitle-parser.d.ts b/node_modules/react-native-subtitles/utils/subtitle-parser.d.ts
+index 1676a9f..d9a91af 100644
+--- a/node_modules/react-native-subtitles/utils/subtitle-parser.d.ts
++++ b/node_modules/react-native-subtitles/utils/subtitle-parser.d.ts
+@@ -1,3 +1,3 @@
+ import { Subtitle } from '../';
+-declare const subtitleParser: (subitleUrl: string) => Promise<Subtitle[]>;
++declare const subtitleParser: (subitleData: string) => Promise<Subtitle[]>;
+ export default subtitleParser;
+diff --git a/node_modules/react-native-subtitles/utils/subtitle-parser.js b/node_modules/react-native-subtitles/utils/subtitle-parser.js
+index eb35d95..704c324 100644
+--- a/node_modules/react-native-subtitles/utils/subtitle-parser.js
++++ b/node_modules/react-native-subtitles/utils/subtitle-parser.js
+@@ -2,13 +2,13 @@ import axios from 'axios';
+ import vttToJson from 'vtt-to-json';
+ const { default: srtParser2 } = require('srt-parser-2');
+ import timeToSeconds from './time-to-seconds';
+-const subtitleParser = async (subitleUrl) => {
+-    const { data: subtitleData } = await axios.get(subitleUrl);
+-    const subtitleType = subitleUrl.split('.')[subitleUrl.split('.').length - 1];
++const subtitleParser = async (subtitleData) => {
++    const subtitleType = 'srt';
+     const result = [];
+     if (subtitleType === 'srt') {
+         const parser = new srtParser2();
+         const parsedSubtitle = parser.fromSrt(subtitleData);
++        console.log("Subtitle data: ",parsedSubtitle);
+         parsedSubtitle.forEach(({ startTime, endTime, text }) => {
+             result.push({
+                 start: timeToSeconds(startTime.split(',')[0]),

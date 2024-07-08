@@ -1,0 +1,12 @@
+{
+  "//appId": "Get your own App ID at https://dashboard.agora.io/",
+  "appId": "3ca9fe10fce14f9dbbee0c1e10909907",
+  "//token": "Please refer to https://docs.agora.io/en/Agora%20Platform/token",
+  "token": "007eJxTYJgt9Nm0l3GTQERK6851ClZlPg4eJ/cLmv26+3xe5cqI1hkKDEamFpZmJsmGRklpqSamyWlJKUaGJqaGyeZJ5obGpimWguc4kifIcyXX9HYyMEIhiM/JEJSanF+UkpmXzsAAAKaGIMU=",
+  "//channelId": "Your channel ID",
+  "channelId": "Recording",
+  "//uid": "Your int user ID",
+  "uid": 0,
+  "//stringUid": "Your string user ID",
+  "stringUid": "0"
+}

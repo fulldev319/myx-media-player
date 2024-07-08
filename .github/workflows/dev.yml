@@ -1,0 +1,89 @@
+name: Android Build
+
+on:
+  workflow_dispatch: # To trigger manual build
+  push:
+    branches: [ dev ]
+
+jobs:
+  android-build:
+    name: Android Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository # clone the repo to local ci workspace
+        uses: actions/checkout@v2
+
+      - name: Set up our JDK environment # setup JDK environment: mandatory as we need to build  android project
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Restore node_modules from cache
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn2-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn2-
+      - name: Install dependencies # install project deps with --frozen-lockfile to make sure we will have the same packages version ( very recommended  on running yarn install on ci)
+        run: yarn install --update-checksums
+
+      ## configure cash for gradle : will help to reduce build time
+      - name: Cache Gradle Wrapper
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+
+      - name: Cache Gradle Dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-caches-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-caches-
+      - name: Make Gradlew Executable
+        run: cd android && chmod +x ./gradlew
+
+      - name: Generate App APK
+        run: yarn release-build
+          ## cd android && ./gradlew assembleRelease --no-daemon
+
+      ## sign generated apk
+      #- name: Sign APK
+      #  id: sign_app
+      #  uses: r0adkll/sign-android-release@v1
+      #  with:
+      #    releaseDirectory: android/app/build/outputs/apk/release
+      #    signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
+      #    alias: ${{ secrets.ANDROID_ALIAS }}
+      #    keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
+      #    keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
+
+      - name: upload apk to the repo
+        run: |
+          git clone https://${{ secrets.TOKEN_GITHUB }}@github.com/myx-audio/myx-media-player-builds.git
+          cd myx-media-player-builds/
+          git config --global user.email "runner@clio"
+          git config --global user.name "Github Actions"
+          git pull
+          git rm -r  .
+          git add . && git commit -m 'remove all'
+          cd ../
+          cp -r android/app/build/outputs/apk/release/* myx-media-player-builds/
+          cd myx-media-player-builds/
+          split -n 5 app-release.apk
+          rm app-release.apk
+          date > date.txt
+          ls -a
+          git add . && git commit -m "Add new apk"
+          git config --global http.version HTTP/1.1
+          git config --global http.postBuffer 524288000
+          git config --global core.compression 0
+          git push

@@ -1,0 +1,66 @@
+import {StyleSheet, Platform} from 'react-native';
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'transparent',
+  },
+  body: {
+    flex: 1,
+    margin: 24,
+    backgroundColor: 'white',
+    borderRadius: 24,
+    padding: 8,
+    paddingHorizontal: 24,
+    alignItems: 'center',
+  },
+  indicator: {
+    backgroundColor: '#D9D9D9',
+    marginVertical: 0,
+    width: 60,
+    height: 2,
+  },
+  topView: {
+    width: 76,
+    height: 76,
+    borderRadius: 16,
+    backgroundColor: '#F3F4F5',
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  txtNewWorld: {
+    fontFamily: 'Poppins',
+    fontStyle: 'normal',
+    fontSize: 24,
+    fontWeight: '600',
+    color: '#000000',
+    textAlign: 'center',
+    marginTop: 15,
+  },
+  txtDesc: {
+    fontFamily: 'Poppins',
+    fontStyle: 'normal',
+    fontSize: 14,
+    fontWeight: '400',
+    color: '#000000',
+    opacity: 0.6,
+    marginTop: 12,
+  },
+  btnExplore: {
+    width: '100%',
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#FF6651',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  txtBtnExplore: {
+    fontFamily: 'Poppins',
+    fontStyle: 'normal',
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#FFFFFF',
+  },
+});
